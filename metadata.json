@@ -1,0 +1,6 @@
+{
+  "name": "Crypto Alert & Analysis Monitor",
+  "description": "Monitor de criptomoedas em tempo real com indicadores técnicos (RSI, Médias Móveis, MACD), alertas push, simulação de lucro e previsões de tendências usando IA Gemini.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

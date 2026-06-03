@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Alert & Analysis Monitor</title>
+    <script>
+      // Intercept and gracefully capture iframe browser extension errors (like MetaMask connection failures)
+      window.addEventListener('error', function(event) {
+        const msg = event.message || '';
+        if (
+          msg.includes('MetaMask') ||
+          msg.includes('ethereum') ||
+          msg.includes('wallet') ||
+          msg.includes('provider')
+        ) {
+          console.warn('[Extension Guarded]: Safely suppressed iframe extension error:', msg);
+          event.preventDefault();
+          event.stopPropagation();
+          return true;
+        }
+      }, true);
+
+      window.addEventListener('unhandledrejection', function(event) {
+        const reason = event.reason;
+        const msg = reason ? (reason.message || String(reason)) : '';
+        if (
+          msg.includes('MetaMask') ||
+          msg.includes('ethereum') ||
+          msg.includes('wallet') ||
+          msg.includes('provider')
+        ) {
+          console.warn('[Extension Guarded]: Safely resolved iframe/sandbox extension exception:', msg);
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, true);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
